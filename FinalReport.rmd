@@ -51,8 +51,11 @@ chisqtestGC(table1)
 fisher.test(table1)
 ```
 
-Both tests shown here reject the null hypothesis. The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the guys get infected with COVID. The Fisher's test calculated that the odds of getting COVID taking the drug is 1.4738:1. Which is based on the 95% confidence interval ranging from 1.1767 to 1.8497. Therefore, we reject the null hypothesis according to the tests shown above. 
+Both tests shown here reject the null hypothesis. The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the guys get infected with COVID. The Fisher's test calculated that the odds of getting COVID taking the drug is 1.4738:1. Which is based on the 95% confidence interval ranging from 1.1767 to 1.8497. Therefore, we reject the null hypothesis according to the tests shown above.I would not recomend the treatment. 
 
+```{r}
+
+```
 
 
 
