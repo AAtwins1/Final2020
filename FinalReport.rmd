@@ -24,6 +24,38 @@ A new  preventative vaccine (covid91) is under test in clinical trials. Given th
 
 # Guys
 
+```{r}
+Guys <- filter(FinalData, sex =="guy")
+```
+
+```{r}
+barchartGC(~infected + treatment,data=Guys)
+barchartGC(~infected + treatment,data=Guys, type="percent")
+
+```
+
+The bar charts show that the majority of the guys population were not infected. However, the guys who received the treatment were more likely to get infected than the guys that received the placebo. 
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Guys)
+rowPerc(table1)
+colPerc(table1)
+```
+
+Here the table shows that about 58.16 percent of the guys who took the drug had covid and about 41.84 percent of the guys who took the placebo had covid. Proving that, there were more infected guys who took the treatment versus the ones who took the placebo. There were more guys uninfected when taking the placebo because there was about 51.46 percent guys with the placebo who were ok. 
+
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+Both tests shown here reject the null hypothesis. The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the guys get infected with COVID. The Fisher's test calculated that the odds of getting COVID taking the drug is 1.4738:1. Which is based on the 95% confidence interval ranging from 1.1767 to 1.8497. Therefore, we reject the null hypothesis according to the tests shown above. 
+
+
+
+
 # Gals
 
 # LGBTQ
