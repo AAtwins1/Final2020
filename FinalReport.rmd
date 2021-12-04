@@ -23,8 +23,13 @@ FinalData$treatment <- relevel(FinalData$treatment, ref = "placebo")
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+## Methods
+  
+For this assignment we will re-level the data given to receive the correct value from the data given. Then we will check the data given and choose the correct helper file. According to the data, the helper file we will use is a Cat_Cat.rmd file. After this, we will check graphical results, numerical results, and inferential results and analyze them for each people group.  
+
 # Guys
 
+# Graphical results
 ```{r}
 Guys <- filter(FinalData, sex =="guy")
 ```
@@ -36,6 +41,7 @@ barchartGC(~infected + treatment,data=Guys, type="percent")
 
 The bar charts show that the majority of the guys population were not infected. However, the guys who received the drug were more likely to get infected than the guys who received the placebo. 
 
+# Numerical results
 ```{r}
 table1 <- xtabs(~infected + treatment, data=Guys)
 rowPerc(table1)
@@ -44,7 +50,7 @@ colPerc(table1)
 
 Here the table shows that about 58.2 percent of the guys who took the drug had covid and about 41.8 percent of the guys who took the placebo had covid. Proving that, there were more infected guys who took the treatment versus the ones who took the placebo. There were more guys uninfected when taking the placebo because there was about 51.5 percent guys with the placebo who were ok. 
 
-
+# Inferential results
 ```{r}
 chisq.test(table1)
 chisqtestGC(table1)
@@ -64,11 +70,134 @@ The drug is only `r guyeff`% effective on Guys, which means it is not effective.
 
 # Gals
 
+## Graphical Results
+```{r}
+Gals <- filter(FinalData, sex =="gal")
+```
 
+```{r}
+barchartGC(~infected + treatment,data=Gals)
+barchartGC(~infected + treatment,data=Gals, type="percent")
+```
+
+The bar charts show that the majority of the gals population were not infected. However, the gals who received the drug were less likely to get infected than the gals who received the placebo. 
+
+## Numerical results
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=Gals)
+rowPerc(table1)
+colPerc(table1)
+```
+
+Here the table shows that about 66.9 percent of the gals who took the placebo had covid and about 33.1 percent of the gals who took the drug had covid. The percentage of gals who were OK when taking the drug was 50.3%. Proving that, there were less infected gals who took the treatment versus the ones who took the placebo. 
+
+## Inferential results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+Galmod <- fisher.test(table1)
+galeff <- (Galmod$estimate/(Galmod$estimate + 1))*100
+galeffupper <-Galmod$conf.int[2] 
+galeffuppereff<- (Galmod$conf.int[2]/(Galmod$conf.int[2]+1))*100
+galefflower <-Galmod$conf.int[1]
+galefflowereff <-(Galmod$conf.int[1]/(Galmod$conf.int[1]+1))*100
+options(digits=3)
+```
+
+The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the gals get infected with COVID. Therefore, we reject the null hypothesis according to the tests shown above.The Fisher's test calculated that the odds of getting COVID when taking the drug is `r Galmod$estimate`. Which is based on the 95% confidence interval ranging from `r Galmod$conf.int[1]  ` to `r Galmod$conf.int[2] ` . I would recommend the treatment to gals.   
+  
+The drug is `r galeff`% effective on Gals, which means the drug can be effective for gals. The confidence interval is from `r galefflowereff ` to `r galeffuppereff`. According to these results, I would recommend Gals to receive the covid-19 study drug.
 
 # LGBTQ
 
+### Graphical Results
+
+```{r}
+LGBTQ <- filter(FinalData, LGBTQ =="gay")
+```
+
+```{r}
+barchartGC(~infected + treatment,data=LGBTQ)
+barchartGC(~infected + treatment,data=LGBTQ, type="percent")
+```
+
+The bar charts show that the majority of the LGBTQ population were not infected. However, the LGBTQ people who received the drug were more likely to get infected than the LGBTQ people who received the placebo.
+
+### Numerical Results
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=LGBTQ)
+rowPerc(table1)
+colPerc(table1)
+```
+
+Here the table shows that about 70.7 percent of the LGBTQ population who took the drug had covid and about 29.3 percent of the LGBTQ population who took the placebo had covid. Proving that, there were more infected gay people who took the treatment versus the ones who took the placebo. There were more gay people uninfected when taking the placebo because there was about 50.8 percent gay people with the placebo who were ok. 
+
+### Inferential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+LGBTQmod <- fisher.test(table1)
+LGBTQeff <- (LGBTQmod$estimate/(LGBTQmod$estimate + 1))*100
+LGBTQeffupper <-LGBTQmod$conf.int[2] 
+LGBTQeffuppereff<- (LGBTQmod$conf.int[2]/(LGBTQmod$conf.int[2]+1))*100
+LGBTQefflower <-LGBTQmod$conf.int[1]
+LGBTQefflowereff <-(LGBTQmod$conf.int[1]/(LGBTQmod$conf.int[1]+1))*100
+options(digits=3)
+```
+
+The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the LGBTQ community gets infected with COVID. The Fisher's test calculated that the odds of getting COVID when taking the drug is `r LGBTQmod$estimate`. Which is based on the 95% confidence interval ranging from `r LGBTQmod$conf.int[1]  ` to `r LGBTQmod$conf.int[2]`. Therefore, we reject the null hypothesis according to the tests shown above.I would not recommend the treatment.   
+  
+The drug is only `r LGBTQeff`% effective on the gay individuals, which means the drug is not effective. The confidence interval is from `r LGBTQefflowereff ` to `r LGBTQeffuppereff`. According to these results, I would not recommend the gay people to receive the covid-19 study drug.
+
 # Drug Users
 
-# Discussion/Conclusion
+#### Graphical Results
 
+```{r}
+DrugUser <- filter(FinalData, DrugUser == "yes")
+```
+
+```{r}
+barchartGC(~infected + treatment,data=DrugUser)
+barchartGC(~infected + treatment,data=DrugUser, type="percent")
+```
+
+The bar charts show that the majority of the drug users were not infected. However, the drug users who received the drug were less likely to get infected than the ones who received the placebo. However, the charts also show that there were more drug users ok with the placebo than the drug.
+
+#### Numerical Results
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=DrugUser)
+rowPerc(table1)
+colPerc(table1)
+```
+
+Here the table shows that about 33.3 percent of the drug users who took the drug had covid and about 66.7 percent of them who took the placebo had covid. Proving that, there were more infected drug users who took the treatment versus the ones who took the placebo. There were more guys uninfected when taking the placebo because there was about 52.2 percent drug users with the placebo who were ok. 
+
+#### Inferential Results
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+DrugUsermod <- fisher.test(table1)
+DrugUsereff <- (DrugUsermod$estimate/(DrugUsermod$estimate + 1))*100
+DrugUsereffupper <-DrugUsermod$conf.int[2] 
+DrugUsereffuppereff<- (DrugUsermod$estimate[2]/(DrugUsermod$conf.int[2]+1))*100
+DrugUserefflower <-DrugUsermod$conf.int[1]
+DrugUserefflowereff <-(DrugUsermod$conf.int[1]/(DrugUsermod$conf.int[1]+1))*100
+options(digits=3)
+```
+
+The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the drugusers get infected with COVID. The Fisher's test calculated that the odds of getting COVID when taking the drug is `r DrugUsermod$estimate`. Which is based on the 95% confidence interval ranging from `r DrugUsermod$conf.int[1]  ` to `r DrugUsermod$conf.int[2] ` . Therefore, we reject the null hypothesis according to the tests shown above.Overall, I would recommend the treatment for drug users.   
+  
+The drug is only `r DrugUsereff `% effective on drugusers, which means the drug can be effective. The confidence interval is from `r DrugUserefflowereff ` to `r DrugUsereffuppereff`. According to these results, I would recommend drugusers to receive the covid-19 study drug.
+
+# Discussion/Conclusion
+After seeing the results for each population group we conclude that the study drug can effective for the gals but not for the guys nor the LGBTQ community. The drug may or may not be effective for drug users as there was some inconsistency with the data in the inferential results and the numerical results as well as the graphical results. The numerical results proved that the drug was not effective but the inferential results proved that the drug was effective. 
