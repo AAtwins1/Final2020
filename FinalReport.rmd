@@ -197,7 +197,7 @@ options(digits=3)
 
 The given p-value for the chi square test and the Fisher's Exact test are both low. Indicating that the drug taken does have a significant affect on whether or not the drugusers get infected with COVID. The Fisher's test calculated that the odds of getting COVID when taking the drug is `r DrugUsermod$estimate`. Which is based on the 95% confidence interval ranging from `r DrugUsermod$conf.int[1]  ` to `r DrugUsermod$conf.int[2] ` . Therefore, we reject the null hypothesis according to the tests shown above.Overall, I would recommend the treatment for drug users.   
   
-The drug is only `r DrugUsereff `% effective on drugusers, which means the drug can be effective. The confidence interval is from `r DrugUserefflowereff ` to `r DrugUsereffuppereff`. According to these results, I would recommend drugusers to receive the covid-19 study drug.
+The drug is `r DrugUsereff `% effective on drugusers, which means the drug can be effective. The confidence interval is from `r DrugUserefflowereff ` to `r DrugUsereffuppereff`. According to these results, I would recommend drugusers to receive the covid-19 study drug.
 
 # Discussion/Conclusion
 After seeing the results for each population group we conclude that the study drug can effective for the gals but not for the guys nor the LGBTQ community. The drug may or may not be effective for drug users as there was some inconsistency with the data in the inferential results and the numerical results as well as the graphical results. The numerical results proved that the drug was not effective but the inferential results proved that the drug was effective. 
